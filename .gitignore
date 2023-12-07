@@ -2,33 +2,93 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class BlackJackGame {
-	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-        Random random = new Random();
 
-        System.out.println("Welcome! type something to start the game");
+public static void main(String[] args) {
+    Scanner scanner = new Scanner(System.in);
+    Random random = new Random();
 
-        while (true) {
-            // Wait for user input
-            String userInput = scanner.nextLine();
-            if(userInput.equals("change1")){
-            	int firstCard = random.nextInt(11);
-            }
+    System.out.println("Welcome! Type 'start' to begin or 'exit' to end the game");
 
-            // Check if the user wants to exit
-            if (userInput.equalsIgnoreCase("exit")) {
-                System.out.println("Exiting the program. Goodbye!");
-                break;
-            }
+    while (true) {
+        // Wait for user input
+        String userInput = scanner.nextLine();
 
-            // Generate and display a random value
-            int firstCard = random.nextInt(11);
-            int SecondCard = random.nextInt(11);
-            System.out.println("First Card " + firstCard);
-            System.out.println("Second Card " + SecondCard);
+        // Check if the user wants to exit
+        if (userInput.equalsIgnoreCase("exit")) {
+            System.out.println("Exiting the program. Goodbye!");
+            break;
         }
 
-        // Close the scanner
-        scanner.close();
+        // Check if the user wants to start the game
+        if (userInput.equalsIgnoreCase("start")) {
+            // Call the playBlackjack method to start the game
+            playBlackjack(random);
+        } 
+        else { System.out.println("Invalid input. Type 'start' to begin or 'exit' to end the game");
+        }
+    }
+
+    // Close the scanner
+    scanner.close();
+}
+
+// Method to play the Blackjack game
+ private static void playBlackjack(Random random) {
+        int firstCard = random.nextInt(11) + 1; // Add 1 to avoid getting 0
+        int secondCard = random.nextInt(11) + 1;
+
+        int playerTotal = firstCard + secondCard;
+
+        System.out.println("First Card: " + firstCard);
+        System.out.println("Second Card: " + secondCard);
+        System.out.println("Your Total: " + playerTotal);
+
+    // Loop for the player's turn
+    while (playerTotal < 21) {
+        System.out.println("Type 'hit' to draw another card or 'stand' to end your turn");
+        String choice = new Scanner(System.in).nextLine();
+
+        if (choice.equalsIgnoreCase("hit")) {
+            // Draw a new card for the player
+            int newCard = random.nextInt(11) + 1;
+            System.out.println("New Card: " + newCard);
+            playerTotal += newCard;
+            System.out.println("Your Total: " + playerTotal);
+        } 
+        else if (choice.equalsIgnoreCase("stand")) {
+            // End the player's turn
+            break;
+        } 
+        else { System.out.println("Invalid input. Type 'hit' or 'stand'.");
+        }
+    }
+
+    // Dealer's turn
+    int dealerTotal = 0;
+    while (dealerTotal < 17) {
+        // Draw cards for the dealer until the total is 17 or higher
+        int dealerCard = random.nextInt(11) + 1;
+        System.out.println("Dealer draws: " + dealerCard);
+        dealerTotal += dealerCard;
+    }
+
+    // Display the final totals for the player and dealer
+    System.out.println("Your Total: " + playerTotal);
+    System.out.println("Dealer's Total: " + dealerTotal);
+
+    // Determine the winner based on the totals
+    determineWinner(playerTotal, dealerTotal);
+}
+
+// Method to determine the winner of the game
+private static void determineWinner(int playerTotal, int dealerTotal) {
+    if (playerTotal > 21 || (dealerTotal <= 21 && dealerTotal >= playerTotal)) {
+        System.out.println("You lose!");
+    }
+    else if (dealerTotal > 21 || playerTotal > dealerTotal) {
+        System.out.println("You win!");
+    } 
+    else {System.out.println("It's a tie!");
     }
 }
+
