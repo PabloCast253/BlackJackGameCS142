@@ -61,7 +61,9 @@ public class BlackJackGame {
 
         scanner.close();
     }
-    /**
+    
+	
+	/**
      * 
      * @return
      */
@@ -78,6 +80,8 @@ public class BlackJackGame {
 
         return deck; //return the deck with 52 cards 
     }
+   
+    
     /**
      * 
      * @param deck
@@ -86,6 +90,8 @@ public class BlackJackGame {
     private static Card drawCard(List<Card> deck) { //simulates grabbing a card from the list deck 
         return deck.remove(0); //returns the value of next card in the array 
     }
+   
+    
     /**
      * 
      * @param hand
@@ -114,6 +120,8 @@ public class BlackJackGame {
 
         return handValue; //return the value of hand 
     }
+   
+    
     /**
      * 
      * @param playerHand
@@ -129,6 +137,9 @@ public class BlackJackGame {
         }
     }
 }
+
+
+
 
 class Card { //this class creates 2 variables
     private final String rank; // ranks being the numbers for the cards
