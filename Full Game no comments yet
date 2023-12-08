@@ -78,35 +78,35 @@ public class BlackJackGame {
     }
 
     private static int calculateHandValue(List<Card> hand) { //calculates the value of the cards you have on hand incluiding aces 
-        int value = 0; //initializes the value 
+        int handValue = 0; //initializes the value 
         int numAces = 0; //number of aces 
 
         for (Card card : hand) { //goes through each card in array hand
             if ("A".equals(card.getRank())) { //if the rank of the card is ace 
-                value += 11; //adds 11 to the value of deck 
+                handValue += 11; //adds 11 to the value of deck 
                 numAces++; //adds 1 to number of aces 
             } else if ("K".equals(card.getRank()) || "Q".equals(card.getRank()) || "J".equals(card.getRank())) { //if the valies on hand are either queen, jack or king
-                value += 10; //add 10 to the value on hand 
+                handValue += 10; //add 10 to the value on hand 
             } else {
-                value += Integer.parseInt(card.getRank()); //add the rank of the card
+                handValue += Integer.parseInt(card.getRank()); //add the rank of the card
             }
         }
 
         // Adjust the value for aces
         while (value > 21 && numAces > 0) { //if the value is more than 21 and if you have at least one ace in hand 
-            value -= 10; //subtract 10 from the value of hand 
+            handValue -= 10; //subtract 10 from the value of hand 
             numAces--; //subtract 1 from the number of aces 
         }
 
-        return value; //return the value of hand 
+        return handValue; //return the value of hand 
     }
 
     private static void displayHands(List<Card> playerHand, List<Card> dealerHand, boolean showAll) {
-        System.out.println("\nYour hand: " + playerHand + " (Value: " + calculateHandValue(playerHand) + ")");
-        if (showAll) {
-            System.out.println("Dealer's hand: " + dealerHand + " (Value: " + calculateHandValue(dealerHand) + ")");
+        System.out.println("\nYour hand: " + playerHand + " (Value: " + calculateHandValue(playerHand) + ")"); //prints out the value of your hand and the ranks and suits 
+        if (showAll) { //if showAll cards is true, (usually when the game is over)
+            System.out.println("Dealer's hand: " + dealerHand + " (Value: " + calculateHandValue(dealerHand) + ")"); //show values and cards of the dealer  
         } else {
-            System.out.println("Dealer's hand: " + dealerHand.get(0) + " and [Hidden]");
+            System.out.println("Dealer's hand: " + dealerHand.get(0) + " and [Hidden]"); //hides the second card of dealer if showAll is not true 
         }
     }
 }
