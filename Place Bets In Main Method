@@ -1,0 +1,24 @@
+public static void main(String[] args) {
+		// create scanner
+		Scanner scanner = new Scanner(System.in);
+		int lowest = 1;
+		int highest = 12;
+		System.out.println("How Much Money Do You Have to Give to the house");
+		System.out.println("I Mean Play With");
+		
+		randomNumberGenerator(lowest,highest);
+		int moneyToPlay = scanner.nextInt();
+		System.out.print("so you have" + " "+ moneyToPlay +"$" );
+		 checkIfBroke(moneyToPlay);
+		 System.out.println("Lets Play Some Black Jack!!");
+		boolean hasMoney = true;
+		
+		 while(moneyToPlay > 0) {
+			// System.out.println(moneyToPlay + "$");
+			 System.out.println();
+			 
+			 System.out.print("Place Your Bet" +  "  " + "(Bet 0 To Leave With Earnings)");
+			 
+			 int bet = scanner.nextInt();
+		
+		 }
