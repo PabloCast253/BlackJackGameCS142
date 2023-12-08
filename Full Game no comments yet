@@ -112,12 +112,12 @@ public class BlackJackGame {
 }
 
 class Card { //this class creates 2 variables
-    private final String rank;
-    private final String suit;
+    private final String rank; // ranks being the numbers for the cards
+    private final String suit; // suits being spades hearts diamands and clubs 
 
     public Card(String rank, String suit) {
-        this.rank = rank;
-        this.suit = suit;
+        this.rank = rank; // setting the rank 
+        this.suit = suit; // setting the suit
     }
 
     public String getRank() { //getter method to get rank of card
@@ -125,7 +125,7 @@ class Card { //this class creates 2 variables
     }
 
     @Override
-    public String toString() { //returns readable output
+    public String toString() { //returns readable output of the cards
         return rank + " of " + suit;
     }
 }
