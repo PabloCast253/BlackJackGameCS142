@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class BlackJackGame {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        List<Card> deck = initializeDeck();
+        List<Card> deck = initializeDeck(); //declares the deck which can hold variables of type card
         Collections.shuffle(deck);
 
         List<Card> playerHand = new ArrayList<>();
@@ -111,7 +111,7 @@ public class BlackJackGame {
     }
 }
 
-class Card {
+class Card { //this class creates 2 variables
     private final String rank;
     private final String suit;
 
@@ -120,12 +120,12 @@ class Card {
         this.suit = suit;
     }
 
-    public String getRank() {
+    public String getRank() { //getter method to get rank of card
         return rank;
     }
 
     @Override
-    public String toString() {
+    public String toString() { //returns readable output
         return rank + " of " + suit;
     }
 }
