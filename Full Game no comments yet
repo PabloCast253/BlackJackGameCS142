@@ -130,3 +130,4 @@ class Card { //this class creates 2 variables
         return rank + " of " + suit;
     }
 }
+// @Siraj I'm going to add a loop to make the game instead of ending asks you if you want to bet again
