@@ -4,19 +4,19 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BlackJackGame {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) { 
+        Scanner scanner = new Scanner(System.in); //adds player input 
         List<Card> deck = initializeDeck(); //declares the deck which can hold variables of type card
-        Collections.shuffle(deck);
+        Collections.shuffle(deck); //shuffles the deck 
 
-        List<Card> playerHand = new ArrayList<>();
-        List<Card> dealerHand = new ArrayList<>();
+        List<Card> playerHand = new ArrayList<>(); //creates a list of cards for the player hand 
+        List<Card> dealerHand = new ArrayList<>(); //creates a list of cards for the Dealer hand 
 
         // Initial deal
-        playerHand.add(drawCard(deck));
-        dealerHand.add(drawCard(deck));
-        playerHand.add(drawCard(deck));
-        dealerHand.add(drawCard(deck));
+        playerHand.add(drawCard(deck)); //adds the card in the array to the players hand 
+        dealerHand.add(drawCard(deck)); //adds card to dealer
+        playerHand.add(drawCard(deck)); //adds another card to player 
+        dealerHand.add(drawCard(deck)); //adds another card to dealer 
 
         // Player's turn
         while (true) {
