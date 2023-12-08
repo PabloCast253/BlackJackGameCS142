@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BlackJackGame {
-    public static void main(String[] args) { 
+   
+	
+	public static void main(String[] args) { 
         // run game through main  method
         Scanner scanner = new Scanner(System.in); //adds player input 
         List<Card> deck = initializeDeck(); //declares the deck which can hold variables of type card
@@ -59,7 +61,10 @@ public class BlackJackGame {
 
         scanner.close();
     }
-
+    /**
+     * 
+     * @return
+     */
     private static List<Card> initializeDeck() {
         List<Card> deck = new ArrayList<>(); //creates an object called deck that contains an array of object card
         String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"}; //initializes an array with suits of cards
@@ -73,11 +78,19 @@ public class BlackJackGame {
 
         return deck; //return the deck with 52 cards 
     }
-
+    /**
+     * 
+     * @param deck
+     * @return
+     */
     private static Card drawCard(List<Card> deck) { //simulates grabbing a card from the list deck 
         return deck.remove(0); //returns the value of next card in the array 
     }
-
+    /**
+     * 
+     * @param hand
+     * @return
+     */
     private static int calculateHandValue(List<Card> hand) { //calculates the value of the cards you have on hand incluiding aces 
         int handValue = 0; //initializes the value 
         int numAces = 0; //number of aces 
@@ -94,14 +107,19 @@ public class BlackJackGame {
         }
 
         // Adjust the value for aces
-        while (value > 21 && numAces > 0) { //if the value is more than 21 and if you have at least one ace in hand 
+        while (handValue > 21 && numAces > 0) { //if the value is more than 21 and if you have at least one ace in hand 
             handValue -= 10; //subtract 10 from the value of hand 
             numAces--; //subtract 1 from the number of aces 
         }
 
         return handValue; //return the value of hand 
     }
-
+    /**
+     * 
+     * @param playerHand
+     * @param dealerHand
+     * @param showAll
+     */
     private static void displayHands(List<Card> playerHand, List<Card> dealerHand, boolean showAll) {
         System.out.println("\nYour hand: " + playerHand + " (Value: " + calculateHandValue(playerHand) + ")"); //prints out the value of your hand and the ranks and suits 
         if (showAll) { //if showAll cards is true, (usually when the game is over)
@@ -115,12 +133,19 @@ public class BlackJackGame {
 class Card { //this class creates 2 variables
     private final String rank; // ranks being the numbers for the cards
     private final String suit; // suits being spades hearts diamands and clubs 
-
+    /**
+     * 
+     * @param rank
+     * @param suit
+     */
     public Card(String rank, String suit) {
         this.rank = rank; // setting the rank 
         this.suit = suit; // setting the suit
     }
-
+    /**
+     * 
+     * @return
+     */
     public String getRank() { //getter method to get rank of card
         return rank;
     }
