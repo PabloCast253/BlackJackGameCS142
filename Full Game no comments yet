@@ -23,7 +23,7 @@ public class BlackJackGame {
         while (true) {
             displayHands(playerHand, dealerHand, false); // calls on display hand emethod to print out the hands 
             System.out.println("Do you want to hit or stand? (h/s)");
-            String choice = scanner.next();
+            String choice = scanner.next(); // take in the players choice of weather he wants to hit or stand "h means hit, s means stand
 
             if ("h".equalsIgnoreCase(choice)) {
                 playerHand.add(drawCard(deck));
