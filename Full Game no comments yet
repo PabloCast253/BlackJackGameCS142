@@ -1,0 +1,131 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+public class BlackJackGame {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        List<Card> deck = initializeDeck();
+        Collections.shuffle(deck);
+
+        List<Card> playerHand = new ArrayList<>();
+        List<Card> dealerHand = new ArrayList<>();
+
+        // Initial deal
+        playerHand.add(drawCard(deck));
+        dealerHand.add(drawCard(deck));
+        playerHand.add(drawCard(deck));
+        dealerHand.add(drawCard(deck));
+
+        // Player's turn
+        while (true) {
+            displayHands(playerHand, dealerHand, false);
+            System.out.println("Do you want to hit or stand? (h/s)");
+            String choice = scanner.next();
+
+            if ("h".equalsIgnoreCase(choice)) {
+                playerHand.add(drawCard(deck));
+                if (calculateHandValue(playerHand) > 21) {
+                    displayHands(playerHand, dealerHand, true);
+                    System.out.println("Bust! You lose.");
+                    break;
+                }
+            } else if ("s".equalsIgnoreCase(choice)) {
+                break;
+            } else {
+                System.out.println("Invalid choice. Please enter 'h' or 's'.");
+            }
+        }
+
+        // Dealer's turn
+        while (calculateHandValue(dealerHand) < 17) {
+            dealerHand.add(drawCard(deck));
+        }
+
+        // Display final hands
+        displayHands(playerHand, dealerHand, true);
+
+        // Determine the winner
+        int playerValue = calculateHandValue(playerHand);
+        int dealerValue = calculateHandValue(dealerHand);
+
+        if (playerValue > 21 || (dealerValue <= 21 && dealerValue >= playerValue)) {
+            System.out.println("Dealer wins!");
+        } else {
+            System.out.println("You win!");
+        }
+
+        scanner.close();
+    }
+
+    private static List<Card> initializeDeck() {
+        List<Card> deck = new ArrayList<>();
+        String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
+        String[] ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
+
+        for (String suit : suits) {
+            for (String rank : ranks) {
+                deck.add(new Card(rank, suit));
+            }
+        }
+
+        return deck;
+    }
+
+    private static Card drawCard(List<Card> deck) {
+        return deck.remove(0);
+    }
+
+    private static int calculateHandValue(List<Card> hand) {
+        int value = 0;
+        int numAces = 0;
+
+        for (Card card : hand) {
+            if ("A".equals(card.getRank())) {
+                value += 11;
+                numAces++;
+            } else if ("K".equals(card.getRank()) || "Q".equals(card.getRank()) || "J".equals(card.getRank())) {
+                value += 10;
+            } else {
+                value += Integer.parseInt(card.getRank());
+            }
+        }
+
+        // Adjust the value for aces
+        while (value > 21 && numAces > 0) {
+            value -= 10;
+            numAces--;
+        }
+
+        return value;
+    }
+
+    private static void displayHands(List<Card> playerHand, List<Card> dealerHand, boolean showAll) {
+        System.out.println("\nYour hand: " + playerHand + " (Value: " + calculateHandValue(playerHand) + ")");
+        if (showAll) {
+            System.out.println("Dealer's hand: " + dealerHand + " (Value: " + calculateHandValue(dealerHand) + ")");
+        } else {
+            System.out.println("Dealer's hand: " + dealerHand.get(0) + " and [Hidden]");
+        }
+    }
+}
+
+class Card {
+    private final String rank;
+    private final String suit;
+
+    public Card(String rank, String suit) {
+        this.rank = rank;
+        this.suit = suit;
+    }
+
+    public String getRank() {
+        return rank;
+    }
+
+    @Override
+    public String toString() {
+        return rank + " of " + suit;
+    }
+}
