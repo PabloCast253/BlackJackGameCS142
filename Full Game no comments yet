@@ -73,32 +73,32 @@ public class BlackJackGame {
         return deck; //return the deck with 52 cards 
     }
 
-    private static Card drawCard(List<Card> deck) {
-        return deck.remove(0);
+    private static Card drawCard(List<Card> deck) { //simulates grabbing a card from the list deck 
+        return deck.remove(0); //returns the value of next card in the array 
     }
 
-    private static int calculateHandValue(List<Card> hand) {
-        int value = 0;
-        int numAces = 0;
+    private static int calculateHandValue(List<Card> hand) { //calculates the value of the cards you have on hand incluiding aces 
+        int value = 0; //initializes the value 
+        int numAces = 0; //number of aces 
 
-        for (Card card : hand) {
-            if ("A".equals(card.getRank())) {
-                value += 11;
-                numAces++;
-            } else if ("K".equals(card.getRank()) || "Q".equals(card.getRank()) || "J".equals(card.getRank())) {
-                value += 10;
+        for (Card card : hand) { //goes through each card in array hand
+            if ("A".equals(card.getRank())) { //if the rank of the card is ace 
+                value += 11; //adds 11 to the value of deck 
+                numAces++; //adds 1 to number of aces 
+            } else if ("K".equals(card.getRank()) || "Q".equals(card.getRank()) || "J".equals(card.getRank())) { //if the valies on hand are either queen, jack or king
+                value += 10; //add 10 to the value on hand 
             } else {
-                value += Integer.parseInt(card.getRank());
+                value += Integer.parseInt(card.getRank()); //add the rank of the card
             }
         }
 
         // Adjust the value for aces
-        while (value > 21 && numAces > 0) {
-            value -= 10;
-            numAces--;
+        while (value > 21 && numAces > 0) { //if the value is more than 21 and if you have at least one ace in hand 
+            value -= 10; //subtract 10 from the value of hand 
+            numAces--; //subtract 1 from the number of aces 
         }
 
-        return value;
+        return value; //return the value of hand 
     }
 
     private static void displayHands(List<Card> playerHand, List<Card> dealerHand, boolean showAll) {
