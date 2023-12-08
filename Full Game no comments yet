@@ -60,17 +60,17 @@ public class BlackJackGame {
     }
 
     private static List<Card> initializeDeck() {
-        List<Card> deck = new ArrayList<>();
-        String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
-        String[] ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
+        List<Card> deck = new ArrayList<>(); //creates an object called deck that contains an array of object card
+        String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"}; //initializes an array with suits of cards
+        String[] ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"}; //initiaillizes and array with ranks of cards 
 
-        for (String suit : suits) {
-            for (String rank : ranks) {
-                deck.add(new Card(rank, suit));
+        for (String suit : suits) { //goes through each object in array suits 
+            for (String rank : ranks) { //goes through each object in array ranks 
+                deck.add(new Card(rank, suit)); //adds the combined object from suits and ranks this created cards and adds them to the deck 
             }
         }
 
-        return deck;
+        return deck; //return the deck with 52 cards 
     }
 
     private static Card drawCard(List<Card> deck) {
