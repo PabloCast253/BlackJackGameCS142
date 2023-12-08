@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class BlackJackGame {
     public static void main(String[] args) { 
+        // run game through main  method
         Scanner scanner = new Scanner(System.in); //adds player input 
         List<Card> deck = initializeDeck(); //declares the deck which can hold variables of type card
         Collections.shuffle(deck); //shuffles the deck 
@@ -20,7 +21,7 @@ public class BlackJackGame {
 
         // Player's turn
         while (true) {
-            displayHands(playerHand, dealerHand, false);
+            displayHands(playerHand, dealerHand, false); // calls on display hand emethod to print out the hands 
             System.out.println("Do you want to hit or stand? (h/s)");
             String choice = scanner.next();
 
