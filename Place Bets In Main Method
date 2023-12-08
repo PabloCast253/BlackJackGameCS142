@@ -12,7 +12,7 @@ public static void main(String[] args) {
 		 checkIfBroke(moneyToPlay);
 		 System.out.println("Lets Play Some Black Jack!!");
 		boolean hasMoney = true;
-		
+		// while loop that will take the players bet
 		 while(moneyToPlay > 0) {
 			// System.out.println(moneyToPlay + "$");
 			 System.out.println();
@@ -20,5 +20,14 @@ public static void main(String[] args) {
 			 System.out.print("Place Your Bet" +  "  " + "(Bet 0 To Leave With Earnings)");
 			 
 			 int bet = scanner.nextInt();
-		
-		 }
+			
+			 if (bet == 0) {
+				 System.out.println("Thank You For Playing");
+				 break;
+			 }
+			 
+			 
+			 if (bet < 0 || bet > moneyToPlay) {
+	                System.out.println("Invalid bet. Please enter a valid amount.");
+	                continue;
+	            }
