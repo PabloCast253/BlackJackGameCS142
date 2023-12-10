@@ -4,28 +4,26 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BlackJackGame {
-   
-	
-	public static void main(String[] args) { 
-        // run game through main  method
-        Scanner scanner = new Scanner(System.in); //adds player input 
-        List<Card> deck = initializeDeck(); //declares the deck which can hold variables of type card
-        Collections.shuffle(deck); //shuffles the deck 
+	public static void main(String[] args) {
+    Scanner scanner = new Scanner(System.in);
 
-        List<Card> playerHand = new ArrayList<>(); //creates a list of cards for the player hand 
-        List<Card> dealerHand = new ArrayList<>(); //creates a list of cards for the Dealer hand 
+    while (true) { 
+        List<Card> deck = initializeDeck();
+        Collections.shuffle(deck);
 
-        // Initial deal
-        playerHand.add(drawCard(deck)); //adds the card in the array to the players hand 
-        dealerHand.add(drawCard(deck)); //adds card to dealer
-        playerHand.add(drawCard(deck)); //adds another card to player 
-        dealerHand.add(drawCard(deck)); //adds another card to dealer 
+        List<Card> playerHand = new ArrayList<>();
+        List<Card> dealerHand = new ArrayList<>();
+
+        playerHand.add(drawCard(deck));
+        dealerHand.add(drawCard(deck));
+        playerHand.add(drawCard(deck));
+        dealerHand.add(drawCard(deck));
 
         // Player's turn
         while (true) {
-            displayHands(playerHand, dealerHand, false); // calls on display hand emethod to print out the hands 
+            displayHands(playerHand, dealerHand, false);
             System.out.println("Do you want to hit or stand? (h/s)");
-            String choice = scanner.next(); // take in the players choice of weather he wants to hit or stand "h means hit, s means stand
+            String choice = scanner.next();
 
             if ("h".equalsIgnoreCase(choice)) {
                 playerHand.add(drawCard(deck));
@@ -59,11 +57,20 @@ public class BlackJackGame {
             System.out.println("You win!");
         }
 
-        scanner.close();
+        // Ask the user if they want to play again (playAgain loop)
+        System.out.println("Do you want to play again? (y/n)");
+        String playAgain = scanner.next();
+
+        if (!"y".equalsIgnoreCase(playAgain)) {
+            System.out.println("Thanks for playing! Goodbye!");
+            break; 
+        }
     }
-    
+
+    scanner.close();
+}
 	
-	/**
+     /**
      * 
      * @return
      */
@@ -160,8 +167,6 @@ class Card { //this class creates 2 variables
     public String getRank() { //getter method to get rank of card
         return rank;
     }
-
-    @Override
     public String toString() { //returns readable output of the cards
         return rank + " of " + suit;
     }
