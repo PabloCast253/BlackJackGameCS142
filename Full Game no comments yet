@@ -5,57 +5,79 @@ import java.util.Scanner;
 
 public class BlackJackGame {
 	public static void main(String[] args) {
-    Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
+        double bankroll = 1000.0;
 
-    while (true) { 
-        List<Card> deck = initializeDeck();
-        Collections.shuffle(deck);
-
-        List<Card> playerHand = new ArrayList<>();
-        List<Card> dealerHand = new ArrayList<>();
-
-        playerHand.add(drawCard(deck));
-        dealerHand.add(drawCard(deck));
-        playerHand.add(drawCard(deck));
-        dealerHand.add(drawCard(deck));
-
-        // Player's turn
         while (true) {
-            displayHands(playerHand, dealerHand, false);
-            System.out.println("Do you want to hit or stand? (h/s)");
-            String choice = scanner.next();
+            List<Card> deck = initializeDeck();
+            Collections.shuffle(deck);
 
-            if ("h".equalsIgnoreCase(choice)) {
-                playerHand.add(drawCard(deck));
-                if (calculateHandValue(playerHand) > 21) {
-                    displayHands(playerHand, dealerHand, true);
-                    System.out.println("Bust! You lose.");
-                    break;
-                }
-            } else if ("s".equalsIgnoreCase(choice)) {
-                break;
-            } else {
-                System.out.println("Invalid choice. Please enter 'h' or 's'.");
+            List<Card> playerHand = new ArrayList<>();
+            List<Card> dealerHand = new ArrayList<>();
+
+            System.out.println("Current Bankroll: $" + bankroll);
+            System.out.print("Enter your bet amount: $");
+            double betAmount = scanner.nextDouble();
+
+            if (betAmount <= 0 || betAmount > bankroll) {
+                System.out.println("Invalid bet amount. Please enter a valid amount.");
+                continue;
             }
-        }
 
-        // Dealer's turn
-        while (calculateHandValue(dealerHand) < 17) {
+            playerHand.add(drawCard(deck));
             dealerHand.add(drawCard(deck));
-        }
+            playerHand.add(drawCard(deck));
+            dealerHand.add(drawCard(deck));
 
-        // Display final hands
-        displayHands(playerHand, dealerHand, true);
+            while (true) {
+                displayHands(playerHand, dealerHand, false);
+                System.out.println("Do you want to hit or stand? (h/s)");
+                String choice = scanner.next();
 
-        // Determine the winner
-        int playerValue = calculateHandValue(playerHand);
-        int dealerValue = calculateHandValue(dealerHand);
+                if ("h".equalsIgnoreCase(choice)) {
+                    playerHand.add(drawCard(deck));
+                    if (calculateHandValue(playerHand) > 21) {
+                        displayHands(playerHand, dealerHand, true);
+                        System.out.println("Bust! You lose.");
+                        bankroll -= betAmount;
+                        break;
+                    }
+                } 
+                else if ("s".equalsIgnoreCase(choice)) {
+                    break;
+                } 
+                else {
+                    System.out.println("Invalid choice. Please enter 'h' or 's'.");
+                }
+            }
 
-        if (playerValue > 21 || (dealerValue <= 21 && dealerValue >= playerValue)) {
-            System.out.println("Dealer wins!");
-        } else {
-            System.out.println("You win!");
-        }
+            while (calculateHandValue(dealerHand) < 17) {
+                dealerHand.add(drawCard(deck));
+            }
+
+            displayHands(playerHand, dealerHand, true);
+
+            int playerValue = calculateHandValue(playerHand);
+            int dealerValue = calculateHandValue(dealerHand);
+
+            if (playerValue > 21 || (dealerValue <= 21 && dealerValue >= playerValue)) {
+                System.out.println("Dealer wins!");
+                bankroll -= betAmount;
+            } else {
+                System.out.println("You win!");
+                if ("A".equals(playerHand.get(0).getRank()) && playerHand.size() == 2) {
+                    System.out.println("Natural Blackjack! Payout 3:2");
+                    bankroll += 1.5 * betAmount;
+                } 
+                else {
+                    bankroll += betAmount;
+                }
+            }
+
+            System.out.println("Updated Bankroll: $" + bankroll);
+
+            System.out.println("Do you want to play again? (y/n)");
+            String playAgain = scanner.next();
 
         // Ask the user if they want to play again (playAgain loop)
         System.out.println("Do you want to play again? (y/n)");
@@ -112,9 +134,11 @@ public class BlackJackGame {
             if ("A".equals(card.getRank())) { //if the rank of the card is ace 
                 handValue += 11; //adds 11 to the value of deck 
                 numAces++; //adds 1 to number of aces 
-            } else if ("K".equals(card.getRank()) || "Q".equals(card.getRank()) || "J".equals(card.getRank())) { //if the valies on hand are either queen, jack or king
+            } 
+            else if ("K".equals(card.getRank()) || "Q".equals(card.getRank()) || "J".equals(card.getRank())) { //if the valies on hand are either queen, jack or king
                 handValue += 10; //add 10 to the value on hand 
-            } else {
+            }
+            else {
                 handValue += Integer.parseInt(card.getRank()); //add the rank of the card
             }
         }
@@ -139,7 +163,8 @@ public class BlackJackGame {
         System.out.println("\nYour hand: " + playerHand + " (Value: " + calculateHandValue(playerHand) + ")"); //prints out the value of your hand and the ranks and suits 
         if (showAll) { //if showAll cards is true, (usually when the game is over)
             System.out.println("Dealer's hand: " + dealerHand + " (Value: " + calculateHandValue(dealerHand) + ")"); //show values and cards of the dealer  
-        } else {
+        } 
+        else {
             System.out.println("Dealer's hand: " + dealerHand.get(0) + " and [Hidden]"); //hides the second card of dealer if showAll is not true 
         }
     }
@@ -171,4 +196,3 @@ class Card { //this class creates 2 variables
         return rank + " of " + suit;
     }
 }
-// @Siraj I'm going to add a loop to make the game instead of ending asks you if you want to bet again
